@@ -21,6 +21,7 @@ import java.util.List;
 
 import top.selzt.mycloud.R;
 import top.selzt.mycloud.SendData.DeleteFile;
+import top.selzt.mycloud.Util.Alert;
 import top.selzt.mycloud.pojo.File;
 public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder> implements View.OnClickListener {
     private List<File> mFiles;
@@ -64,6 +65,8 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder> im
                                 return true;
                             case R.id.rename:
                                 //重命名
+                                String oldName = file.getFileName();
+                                Alert.getInstance().Rename(mContext,oldName);
                                 return true;
                             default:
                                 return false;

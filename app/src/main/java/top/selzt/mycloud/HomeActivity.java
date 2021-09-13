@@ -139,6 +139,7 @@ public class HomeActivity extends AppCompatActivity {
     }
     @OnClick(R.id.ivMenuBack)
     public void menuBackClickListener(){
+        //返回按钮
         UserMsg userMsg = UserMsg.getInstance();
         String path = userMsg.getNowPath();
         if(path.equals("")){

@@ -13,4 +13,8 @@ public class Constance {
     public static final int GET_LIST_FAIL = 201;
     public static final int DELETE_FILE_SUCCESS = 500;
     public static final int DELETE_FILE_FAIL = 501;
+    public static final int RENAME_SUCCESS = 600;
+    public static final int RENAME_FAIL_EXISTS = 601;
+    public static final int RENAME_FAIL_NOT_EXISTS = 602;
+    public static final int RENAME_FAIL = 603;
 }
