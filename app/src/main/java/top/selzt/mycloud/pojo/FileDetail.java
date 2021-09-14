@@ -1,6 +1,6 @@
 package top.selzt.mycloud.pojo;
 
-public class File {
+public class FileDetail {
     //文件名
     private String fileName;
     //文件类型 文件或文件夹

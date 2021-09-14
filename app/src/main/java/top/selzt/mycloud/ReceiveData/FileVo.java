@@ -2,12 +2,12 @@ package top.selzt.mycloud.ReceiveData;
 
 import java.util.List;
 
-import top.selzt.mycloud.pojo.File;
+import top.selzt.mycloud.pojo.FileDetail;
 
 public class FileVo {
     private int code;
     private String token;
-    private List<File> filesList;
+    private List<FileDetail> filesList;
 
     public int getCode() {
         return code;
@@ -25,11 +25,11 @@ public class FileVo {
         this.token = token;
     }
 
-    public List<File> getFilesList() {
+    public List<FileDetail> getFilesList() {
         return filesList;
     }
 
-    public void setFilesList(List<File> filesList) {
+    public void setFilesList(List<FileDetail> filesList) {
         this.filesList = filesList;
     }
 }

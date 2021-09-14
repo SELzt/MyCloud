@@ -22,14 +22,14 @@ import java.util.List;
 import top.selzt.mycloud.R;
 import top.selzt.mycloud.SendData.DeleteFile;
 import top.selzt.mycloud.Util.Alert;
-import top.selzt.mycloud.pojo.File;
+import top.selzt.mycloud.pojo.FileDetail;
 public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder> implements View.OnClickListener {
-    private List<File> mFiles;
+    private List<FileDetail> mFiles;
     private Context mContext;
     private int resourceId;
     private OnItemClickListener onItemClickListener;
     private RecyclerView recyclerView;
-    public FileAdapter(Context context, int resourceId, List<File> files) {
+    public FileAdapter(Context context, int resourceId, List<FileDetail> files) {
         this.mContext = context;
         this.mFiles = files;
         this.resourceId = resourceId;
@@ -48,7 +48,7 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder> im
             @Override
             public void onClick(View view) {
                 int position = (int)view.getTag();
-                File file = mFiles.get(position);
+                FileDetail file = mFiles.get(position);
                 //已经准确获取到点击坐标
                 PopupMenu popupMenu = new PopupMenu(mContext,holder.ivMoreAction);
                 popupMenu.inflate(R.menu.menu_item_menu);
@@ -79,7 +79,7 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder> im
     }
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        File f = mFiles.get(position);
+        FileDetail f = mFiles.get(position);
         holder.tvFilename.setText(f.getFileName());
         holder.tvModifyTime.setText(f.getModifyTime());
         holder.tvFileSize.setText(f.getFileSize());
@@ -140,6 +140,6 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder> im
 
     }
     public interface OnItemClickListener{
-        void OnItemClick(RecyclerView parent,View view,int position,File file);
+        void OnItemClick(RecyclerView parent, View view, int position, FileDetail file);
     }
 }

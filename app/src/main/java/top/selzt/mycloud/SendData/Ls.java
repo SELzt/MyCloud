@@ -22,18 +22,18 @@ import top.selzt.mycloud.ReceiveData.FileVo;
 import top.selzt.mycloud.Util.Constance;
 import top.selzt.mycloud.Util.SendRequest;
 import top.selzt.mycloud.Util.UserMsg;
-import top.selzt.mycloud.pojo.File;
+import top.selzt.mycloud.pojo.FileDetail;
 
 public class Ls {
     private String path;
     @Expose(serialize = false)
     private HomeActivity homeActivity;
-    private List<File> fileList;
+    private List<FileDetail> fileList;
     private FileAdapter fileAdapter;
     public Ls(){
     }
 
-    public void go(HomeActivity homeActivity, List<File> files, FileAdapter fileAdapter){
+    public void go(HomeActivity homeActivity, List<FileDetail> files, FileAdapter fileAdapter){
         this.homeActivity = homeActivity;
         this.fileList = files;
         this.fileAdapter = fileAdapter;
@@ -68,8 +68,8 @@ public class Ls {
                             UserMsg userMsg = UserMsg.getInstance();
                             userMsg.setToken(fileVo.getToken());
                             userMsg.setSuccess(true);
-                            List<File> list = fileVo.getFilesList();
-                            for(File f :list){
+                            List<FileDetail> list = fileVo.getFilesList();
+                            for(FileDetail f :list){
                                 fileList.add(f);
                             }
                             fileAdapter.notifyDataSetChanged();

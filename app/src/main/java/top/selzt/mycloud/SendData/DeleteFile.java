@@ -1,7 +1,6 @@
 package top.selzt.mycloud.SendData;
 
 import android.content.Context;
-import android.os.Looper;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -24,14 +23,14 @@ import top.selzt.mycloud.ReceiveData.FileVo;
 import top.selzt.mycloud.Util.Constance;
 import top.selzt.mycloud.Util.SendRequest;
 import top.selzt.mycloud.Util.UserMsg;
-import top.selzt.mycloud.pojo.File;
+import top.selzt.mycloud.pojo.FileDetail;
 
 public class DeleteFile {
     private FileAdapter mFileAdapter;
-    private List<File> mFiles;
+    private List<FileDetail> mFiles;
     private Context mContext;
     private int position;
-    public void go(Context mContext, FileAdapter mFileAdapter, String fileName, List<File> mFiles, int position){
+    public void go(Context mContext, FileAdapter mFileAdapter, String fileName, List<FileDetail> mFiles, int position){
         this.mContext = mContext;
         this.mFileAdapter = mFileAdapter;
         this.mFiles = mFiles;
