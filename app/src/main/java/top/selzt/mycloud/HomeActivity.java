@@ -1,6 +1,5 @@
 package top.selzt.mycloud;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
@@ -23,7 +22,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -35,8 +33,6 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import java.io.File;
-import java.net.URI;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +41,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import top.selzt.mycloud.Adapter.FileAdapter;
 import top.selzt.mycloud.SendData.Ls;
+import top.selzt.mycloud.TransmissionThread.UploadThread;
 import top.selzt.mycloud.Util.Alert;
 import top.selzt.mycloud.Util.Constance;
 import top.selzt.mycloud.Util.UserMsg;
@@ -56,7 +53,7 @@ public class HomeActivity extends AppCompatActivity {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private final static int REQUEST_PERMISSIONS_CODE = 1;
-
+    private String path;
     //  回调码
     private final static int FILE_RESULT_CODE = 400;
     @BindView(R.id.homeRecycleView)
@@ -150,13 +147,13 @@ public class HomeActivity extends AppCompatActivity {
                         return true;
                     case R.id.upload:
                         //上传文件
-                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);  //  意图：文件浏览器
+                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                         intent.setType("*/*");//无类型限制
                         intent.addCategory(Intent.CATEGORY_OPENABLE);
                         startActivityForResult(intent, FILE_RESULT_CODE);
                         return true;
-                    case R.id.downloadManage:
-                        //下载管理，管理本地已下载好的文件
+                    case R.id.transmissionManage:
+                        //传输管理，管理正在传输或已经传输完成的文件
                         return true;
                     default:
                         return false;
@@ -182,6 +179,7 @@ public class HomeActivity extends AppCompatActivity {
         files.clear();
         ls.go(HomeActivity.this,files,fileAdapter);
     }
+    //获取权限
     private void getOrder(){
                 boolean firstLaunch = false;
                 String shareFile = getResources().getString(R.string.shareFilename);
@@ -217,7 +215,7 @@ public class HomeActivity extends AppCompatActivity {
 
         }
     }
-    String path;
+    //获取文件真实路径
     @Override
     protected void onActivityResult(int requestCode, int resultCode,Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -226,7 +224,6 @@ public class HomeActivity extends AppCompatActivity {
             Uri uri = data.getData();
             if ("file".equalsIgnoreCase(uri.getScheme())){//使用第三方应用打开
                 path = uri.getPath();
-                Toast.makeText(HomeActivity.this,path+"11111",Toast.LENGTH_SHORT).show();
                 return;
             }
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {//4.4以后
@@ -235,12 +232,11 @@ public class HomeActivity extends AppCompatActivity {
                     Toast.makeText(HomeActivity.this,"该文件暂时无法获取",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                File f = new File(path);
-                String fname = f.getName();
-                Toast.makeText(HomeActivity.this,path,Toast.LENGTH_SHORT).show();
+                new UploadThread(path).start();
+
             } else {//4.4以下下系统调用方法
                 path = getRealPathFromURI(uri);
-                Toast.makeText(HomeActivity.this, path+"222222", Toast.LENGTH_SHORT).show();
+
             }
         }
     }
@@ -264,10 +260,7 @@ public class HomeActivity extends AppCompatActivity {
     @SuppressLint("NewApi")
     public String getPath(final Context context, final Uri uri) {
         try {
-
-
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-
         // DocumentProvider
         if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
             // ExternalStorageProvider
@@ -288,7 +281,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 final String id = DocumentsContract.getDocumentId(uri);
                 final Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"),33 );
+                        Uri.parse("content://downloads/public_downloads"),Long.valueOf(id) );
                 return getDataColumn(context, contentUri, null, null);
             }
             // MediaProvider

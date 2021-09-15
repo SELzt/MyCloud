@@ -5,7 +5,11 @@ import okhttp3.MediaType;
 public class Constance {
     public static final String SERVER_ADDR = "10.0.2.2:8888";
     public static final MediaType JSON = MediaType.parse("application/json; charset-utf-8");
+    public static final MediaType FORM_DATA  = MediaType.parse("multipart/form-data");
     public static final String ROUTE_HOMEACTIVITY_URL = "/app/homeActivity";
+    public static final String USERNAME = "username";
+    public static final String TOKEN = "token";
+    public static final String PATH = "path";
     public static final int CREATE_FOLDER_SUCCESS = 100;
     public static final int CREATE_FOLDER_FAIL = 101;
     public static final int CREATE_FOLDER_EXISTS = 102;

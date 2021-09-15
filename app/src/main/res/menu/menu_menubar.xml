@@ -18,7 +18,7 @@
         android:title="上传文件"
         />
     <item
-        android:id="@+id/downloadManage"
+        android:id="@+id/transmissionManage"
         android:orderInCategory="3"
         android:title="传输管理"/>
 </menu>
