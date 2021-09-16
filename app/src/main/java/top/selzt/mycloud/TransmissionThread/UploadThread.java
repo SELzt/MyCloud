@@ -4,12 +4,14 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -18,6 +20,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.BufferedSink;
+import top.selzt.mycloud.ReceiveData.FileVo;
 import top.selzt.mycloud.Util.Constance;
 import top.selzt.mycloud.Util.SendRequest;
 import top.selzt.mycloud.Util.ThreadMap;
@@ -93,7 +96,18 @@ public class UploadThread extends Thread{
 
         @Override
         public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-
+            if(response.isSuccessful()){
+                String body = response.body().string();
+                Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+                Type jsonType = new TypeToken<FileVo>(){}.getType();
+                FileVo fileVo = gson.fromJson(body,jsonType);
+                if(fileVo.getCode() == Constance.UPLOAD_SUCCESS){
+                    Log.e("upload","Success");
+                }
+                else{
+                    Log.e("upload","Fail");
+                }
+            }
         }
     };
 

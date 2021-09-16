@@ -29,6 +29,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
@@ -154,6 +155,7 @@ public class HomeActivity extends AppCompatActivity {
                         return true;
                     case R.id.transmissionManage:
                         //传输管理，管理正在传输或已经传输完成的文件
+                        ARouter.getInstance().build(Constance.ROUTE_TRANSMISSION_URL).navigation();
                         return true;
                     default:
                         return false;

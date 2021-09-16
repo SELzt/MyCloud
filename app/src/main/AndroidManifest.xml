@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyCloud">
-
+        <activity android:name=".TransmissionActivity"></activity>
         <activity android:name=".SignUpActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".MainActivity">

@@ -7,6 +7,7 @@ public class Constance {
     public static final MediaType JSON = MediaType.parse("application/json; charset-utf-8");
     public static final MediaType FORM_DATA  = MediaType.parse("multipart/form-data");
     public static final String ROUTE_HOMEACTIVITY_URL = "/app/homeActivity";
+    public static final String ROUTE_TRANSMISSION_URL = "/app/transmission";
     public static final String USERNAME = "username";
     public static final String TOKEN = "token";
     public static final String PATH = "path";
@@ -15,6 +16,8 @@ public class Constance {
     public static final int CREATE_FOLDER_EXISTS = 102;
     public static final int GET_LIST_SUCCESS = 200;
     public static final int GET_LIST_FAIL = 201;
+    public static final int UPLOAD_SUCCESS = 300;
+    public static final int UPLOAD_FAIL = 301;
     public static final int DELETE_FILE_SUCCESS = 500;
     public static final int DELETE_FILE_FAIL = 501;
     public static final int RENAME_SUCCESS = 600;

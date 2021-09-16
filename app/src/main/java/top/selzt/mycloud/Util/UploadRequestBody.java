@@ -60,6 +60,11 @@ public class UploadRequestBody extends RequestBody {
             super.write(source, byteCount);
             uploadSize +=byteCount;
             mProgressListener.getProgress(uploadSize,contentLength());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
     public interface ProgressListener{
