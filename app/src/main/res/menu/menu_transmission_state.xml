@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".TransmissionActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <item
+        android:id="@+id/transmissionUploading"
+        android:orderInCategory="1"
+        android:title="正在上传"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/transmissionDownloading"
+        android:orderInCategory="2"
+        android:title="正在下载"
+        />
+    <item
+        android:id="@+id/transmissionDownloaded"
+        android:orderInCategory="3"
+        android:title="已下载"/>
+</menu>
