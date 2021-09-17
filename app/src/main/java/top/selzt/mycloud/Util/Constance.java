@@ -11,6 +11,7 @@ public class Constance {
     public static final String USERNAME = "username";
     public static final String TOKEN = "token";
     public static final String PATH = "path";
+    public static final String LOCAL_PATH_BASE = "/data/user/0/top.selzt.mycloud/files";
     public static final int CREATE_FOLDER_SUCCESS = 100;
     public static final int CREATE_FOLDER_FAIL = 101;
     public static final int CREATE_FOLDER_EXISTS = 102;

@@ -3,7 +3,7 @@ package top.selzt.mycloud.pojo;
 public class FileDetail {
     //文件名
     private String fileName;
-    //文件类型 文件或文件夹
+    //文件类型 文件或文件夹 0 / 1
     private String fileType;
     //文件大小
     private String fileSize;

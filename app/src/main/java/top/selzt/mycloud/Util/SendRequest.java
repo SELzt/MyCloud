@@ -28,4 +28,17 @@ public class SendRequest {
             }
         }).start();
     }
+    public static void Get(String url,Callback callback){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Request request = new Request.Builder()
+                        .url(url)
+                        .get()
+                        .build();
+                OkHttpClient client = new OkHttpClient();
+                client.newCall(request).enqueue(callback);
+            }
+        }).start();
+    }
 }

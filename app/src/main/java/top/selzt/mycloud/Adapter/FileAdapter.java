@@ -21,6 +21,7 @@ import java.util.List;
 
 import top.selzt.mycloud.R;
 import top.selzt.mycloud.SendData.DeleteFile;
+import top.selzt.mycloud.TransmissionThread.DownloadThread;
 import top.selzt.mycloud.Util.Alert;
 import top.selzt.mycloud.pojo.FileDetail;
 public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder> implements View.OnClickListener {
@@ -58,6 +59,10 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder> im
                         switch (item.getItemId()){
                             case R.id.download:
                                 //下载
+                                if(file.getFileType().equals("1"))
+                                    return true;
+                                String filename = file.getFileName();
+                                new DownloadThread(filename).start();
                                 return true;
                             case R.id.delete:
                                 //删除
