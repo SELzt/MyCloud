@@ -36,6 +36,19 @@ public class DownloadThread extends Thread{
     public DownloadThread(String filename){
         this.filename = filename;
     }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public double getFileSize() {
+        return fileSize;
+    }
+
+    public double getDownloadSize() {
+        return downloadSize;
+    }
+
     @Override
     public void run() {
         NeedData needData = new NeedData(filename);
@@ -75,7 +88,7 @@ public class DownloadThread extends Thread{
         @Override
         public void onResponse(Call call, Response response) throws IOException {
             if(response.isSuccessful()){
-                byte[] buffer = new byte[1024*1024*7];
+                byte[] buffer = new byte[1024];
                 InputStream input = response.body().byteStream();
                 File f = new File(Constance.LOCAL_PATH_BASE + "/" + filename);
                 String prefix = filename.substring(0,filename.lastIndexOf("."));
@@ -91,6 +104,11 @@ public class DownloadThread extends Thread{
                     output.write(buffer,0,len);
                     downloadSize+=len; //更新下载进度
                     Log.i("download",downloadSize + "/" + fileSize);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
                 Log.i("download","下载完成");
                 input.close();

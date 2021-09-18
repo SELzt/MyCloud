@@ -21,10 +21,12 @@ public class UploadAdapter extends RecyclerView.Adapter<UploadAdapter.ViewHolder
     private int resourceId;
     private List<UploadThread> mList;
     private RecyclerView recyclerView;
+    DecimalFormat df;
     public UploadAdapter(Context context,int resourceId,List<UploadThread> list) {
         mContext = context;
         this.resourceId = resourceId;
         mList = list;
+        df = new DecimalFormat("0.00");
     }
 
     @Override
@@ -40,7 +42,7 @@ public class UploadAdapter extends RecyclerView.Adapter<UploadAdapter.ViewHolder
         long uploadSize = thread.getUploadSize();
         long fileSize = thread.getFileSize();
         double percent =((double)uploadSize/(double)fileSize)*100;
-        DecimalFormat df = new DecimalFormat("0.00");
+
         holder.tvPercent.setText( df.format(percent)+ "%");
         holder.tvUploadTotal.setText(uploadSize+"/"+fileSize);
         holder.progressBar.setMax(100);

@@ -19,7 +19,9 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import top.selzt.mycloud.Adapter.DownloadAdapter;
 import top.selzt.mycloud.Adapter.UploadAdapter;
+import top.selzt.mycloud.TransmissionThread.DownloadThread;
 import top.selzt.mycloud.TransmissionThread.UploadThread;
 import top.selzt.mycloud.Util.Constance;
 import top.selzt.mycloud.Util.ThreadMap;
@@ -35,20 +37,24 @@ public class TransmissionActivity extends AppCompatActivity {
     TextView tvPopupState;
 
     UploadThreadNotify notifyUploadThread;
-    Thread notifyDownloadThread;
-    List<UploadThread> threadList;
+    DownloadThreadNotify notifyDownloadThread;
+
+    List<UploadThread> uploadThreadList;
+    List<DownloadThread> downloadThreadList;
     UploadAdapter uploadAdapter;
+    DownloadAdapter downloadAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.transmission_panel);
         ButterKnife.bind(this);
-        threadList = new ArrayList<>();
+        uploadThreadList = new ArrayList<>();
         for (Map.Entry<String, UploadThread> entry : ThreadMap.uploadThreadMap.entrySet()) {
-            threadList.add(entry.getValue());
+            uploadThreadList.add(entry.getValue());
         }
-        uploadAdapter = new UploadAdapter(TransmissionActivity.this, R.layout.transmission_item, threadList);
+        uploadAdapter = new UploadAdapter(TransmissionActivity.this, R.layout.transmission_item, uploadThreadList);
+
         LinearLayoutManager llm = new LinearLayoutManager(this);//线性布局
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(uploadAdapter);
@@ -69,16 +75,17 @@ public class TransmissionActivity extends AppCompatActivity {
                         if(notifyUploadThread.isAlive()){
                             notifyUploadThread.flag = false;
                         }
-                        /*if(notifyDownloadThread.isAlive()){
-
-                        }*/
+                        if(notifyDownloadThread.isAlive()){
+                            notifyDownloadThread.flag = false;
+                        }
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                threadList.clear();
+                                uploadThreadList.clear();
                                 for (Map.Entry<String, UploadThread> entry : ThreadMap.uploadThreadMap.entrySet()) {
-                                    threadList.add(entry.getValue());
+                                    uploadThreadList.add(entry.getValue());
                                 }
+                                recyclerView.setAdapter(uploadAdapter);
                                 notifyUploadThread = new UploadThreadNotify();
                                 notifyUploadThread.start();
                             }
@@ -89,11 +96,21 @@ public class TransmissionActivity extends AppCompatActivity {
                         if(notifyUploadThread.isAlive()){
                             notifyUploadThread.flag = false;
                         }
-                        /*if(notifyDownloadThread.isAlive()){
-                            notifyDownloadThread.stop();
-                        }*/
+                        if(notifyDownloadThread!=null && notifyDownloadThread.isAlive()){
+                            notifyDownloadThread.flag = false;
+                        }
                         tvPopupState.setText("正在下载");
-
+                        if(downloadAdapter == null){
+                            downloadThreadList = new ArrayList<>();
+                            downloadAdapter = new DownloadAdapter(TransmissionActivity.this,R.layout.transmission_item,downloadThreadList);
+                        }
+                        downloadThreadList.clear();
+                        for (Map.Entry<String,DownloadThread> entry : ThreadMap.downloadThreadMap.entrySet()){
+                            downloadThreadList.add(entry.getValue());
+                        }
+                        recyclerView.setAdapter(downloadAdapter);
+                        notifyDownloadThread = new DownloadThreadNotify();
+                        notifyDownloadThread.start();
                         return true;
                     case R.id.transmissionDownloaded:
                         //已下载
@@ -124,5 +141,29 @@ public class TransmissionActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+    class DownloadThreadNotify extends Thread{
+        boolean flag = true;
+
+        @Override
+        public void run() {
+            while (flag){
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        downloadAdapter.notifyDataSetChanged();
+                    }
+                });
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    @OnClick(R.id.transmissionBackBtn)
+    public void backBtnClickListener(){
+        TransmissionActivity.this.finish();
     }
 }
