@@ -11,6 +11,7 @@ public class RouteApplication extends Application {
 
     @Override
     public void onCreate() {
+
         super.onCreate();
         if(BuildConfig.DEBUG){
             ARouter.openLog();

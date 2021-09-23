@@ -8,6 +8,7 @@ public class Constance {
     public static final MediaType FORM_DATA  = MediaType.parse("multipart/form-data");
     public static final String ROUTE_HOMEACTIVITY_URL = "/app/homeActivity";
     public static final String ROUTE_TRANSMISSION_URL = "/app/transmission";
+    public static final String ROUTE_SIGN_UP_URL = "/app/signUp";
     public static final String USERNAME = "username";
     public static final String TOKEN = "token";
     public static final String PATH = "path";

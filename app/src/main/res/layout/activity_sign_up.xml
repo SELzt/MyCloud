@@ -1,9 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignUpActivity">
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/signBackBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/ic_baseline_keyboard_backspace_24"
+            />
+        <ImageView
+            android:background="#BFBFBF"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="2dp"
+            android:layout_below="@id/signBackBtn"
+            />
+    </RelativeLayout>
+    <!-- 用户名 非空
+         密码 非空
+         昵称 非空
+         邮箱 可空
+    -->
+    <RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="100dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    >
+    <RelativeLayout
+        android:id="@+id/rlSignUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:id="@+id/signUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:text="用户名"
+            android:textColor="@color/black"
+            />
+        <EditText
+            android:id="@+id/etSignUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/signUsername"
+            android:inputType="text"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rlSignPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlSignUsername"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="密码"
+            android:textSize="25dp"
+            android:textColor="@color/black"
+            />
+        <EditText
+            android:id="@+id/etSignPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="75dp"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rlSignRolename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlSignPassword"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="昵称"
+            android:textSize="25dp"
+            android:textColor="@color/black"
+            />
+        <EditText
+            android:id="@+id/etSignRolename"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:layout_marginLeft="75dp"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rlSignMailbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlSignRolename"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:text="邮箱"
+            android:textColor="@color/black"
+            />
+        <EditText
+            android:id="@+id/etSignMail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:layout_marginLeft="75dp"
+            />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/signSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlSignMailbox"
+        android:layout_centerHorizontal="true"
+        android:text="提交"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        />
+    </RelativeLayout>
+</RelativeLayout>

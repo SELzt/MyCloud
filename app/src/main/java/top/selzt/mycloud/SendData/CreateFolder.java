@@ -1,5 +1,6 @@
 package top.selzt.mycloud.SendData;
 
+import android.content.Context;
 import android.os.Looper;
 import android.widget.Toast;
 
@@ -17,14 +18,15 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import top.selzt.mycloud.HomeActivity;
 import top.selzt.mycloud.ReceiveData.FileVo;
+import top.selzt.mycloud.Util.Alert;
 import top.selzt.mycloud.Util.Constance;
 import top.selzt.mycloud.Util.SendRequest;
 import top.selzt.mycloud.Util.UserMsg;
 
 public class CreateFolder {
-    private HomeActivity homeActivity;
-    public void go(HomeActivity homeActivity,String folderName){
-        this.homeActivity = homeActivity;
+    private Context mContext;
+    public void go(Context context, String folderName){
+        this.mContext = context;
         NeedData data = new NeedData(folderName);
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         String msg = gson.toJson(data,NeedData.class);
@@ -51,14 +53,14 @@ public class CreateFolder {
 
                 if(fileVo.getCode()==Constance.CREATE_FOLDER_SUCCESS){
                     //正常情况，处理业务
-                    Toast.makeText(homeActivity,"文件夹创建成功",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,"文件夹创建成功",Toast.LENGTH_SHORT).show();
 
                 }
                 else if(fileVo.getCode() == Constance.CREATE_FOLDER_EXISTS){
-                    Toast.makeText(homeActivity,"文件夹已存在",Toast.LENGTH_SHORT).show();
+                    Alert.getInstance().SimpleMessage(mContext,"文件夹已存在");
                 }
                 else{
-                    Toast.makeText(homeActivity,"文件夹创建失败",Toast.LENGTH_SHORT).show();
+                    Alert.getInstance().SimpleMessage(mContext,"文件夹创建失败");
                 }
                 Looper.loop();
             }

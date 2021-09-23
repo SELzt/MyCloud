@@ -11,6 +11,7 @@ import android.widget.Toast;
 import top.selzt.mycloud.HomeActivity;
 import top.selzt.mycloud.SendData.CreateFolder;
 import top.selzt.mycloud.SendData.Rename;
+import top.selzt.mycloud.SignUpActivity;
 
 public class Alert {
     private static Alert alert;
@@ -20,10 +21,10 @@ public class Alert {
             alert = new Alert();
         return alert;
     }
-    public void CreateFolder(HomeActivity homeActivity){
-        final EditText folderNameInput = new EditText(homeActivity);
+    public void CreateFolder(Context context){
+        final EditText folderNameInput = new EditText(context);
         folderNameInput.setFilters(filters);
-        AlertDialog.Builder builder = new AlertDialog.Builder(homeActivity);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("请输入新文件夹名");
         builder.setView(folderNameInput);
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -38,10 +39,10 @@ public class Alert {
                 //doSomeThing
                 String folderName = folderNameInput.getText().toString();
                 if(folderName.replace(" ","").equals("")){
-                    Toast.makeText(homeActivity,"文件夹名不能为空",Toast.LENGTH_SHORT).show();
+                    SimpleMessage(context,"文件名不能为空");
                     return;
                 }
-                new CreateFolder().go(homeActivity,"/"+folderName);
+                new CreateFolder().go(context,"/"+folderName);
             }
         });
         builder.create();
@@ -59,7 +60,7 @@ public class Alert {
                 String newName = newNameInput.getText().toString();
                 if(newName.replace(" ","").equals("")){
                     //空字符串
-                    Toast.makeText(context,"文件名不能为空",Toast.LENGTH_SHORT);
+                    SimpleMessage(context,"文件名不能为空");
                     return;
                 }
                 new Rename().go(context,oldName,newName);
@@ -69,6 +70,21 @@ public class Alert {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
+            }
+        });
+        builder.create();
+        builder.show();
+    }
+    public void SimpleMessage(Context context, String msg){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("提示信息");
+        builder.setMessage(msg);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(msg.equals("注册成功")){
+                    ((SignUpActivity)context).finish();
+                }
             }
         });
         builder.create();
@@ -95,4 +111,8 @@ public class Alert {
                 }
             }
     };
+
+    public InputFilter[] getFilters() {
+        return filters;
+    }
 }

@@ -12,10 +12,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import top.selzt.mycloud.SendData.Login;
+import top.selzt.mycloud.Util.Constance;
 import top.selzt.mycloud.pojo.User;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView cvLoginBackground;
     @BindView(R.id.cvLogin)
     CardView cvLogin;
+    @BindView(R.id.TvRegister)
+    TextView tvRegister;
     Boolean showPWDFlag;
     Boolean canClickOne = false;
     Boolean canClickTwo = false;
@@ -59,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     //隐藏密码
-                    showPWD.setImageResource(R.drawable.ic_baseline_visibility_24);
+                    showPWD.setImageResource(R.drawable.ic_baseline_visibility_off_24);
                     etLoginPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
                 showPWDFlag = !showPWDFlag;
@@ -113,5 +120,8 @@ public class MainActivity extends AppCompatActivity {
         else
             cvLoginBackground.setBackgroundColor(Color.parseColor("#BFBFBF"));
     }
-
+    @OnClick(R.id.TvRegister)
+    public void RegisterClickListener(){
+        ARouter.getInstance().build(Constance.ROUTE_SIGN_UP_URL).navigation();
+    }
 }

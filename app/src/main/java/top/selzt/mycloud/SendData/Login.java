@@ -58,6 +58,7 @@ public class Login {
                             userMsg.setUserInfo(userVo.getUserInfo());
                             Toast.makeText(mainActivity,"登陆成功",Toast.LENGTH_SHORT).show();
                             ARouter.getInstance().build(Constance.ROUTE_HOMEACTIVITY_URL).navigation();
+                            mainActivity.finish();
                         }
                         else if (code.equals("20001")){
                             Toast.makeText(mainActivity,"密码错误",Toast.LENGTH_SHORT).show();

@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -69,6 +70,8 @@ public class HomeActivity extends AppCompatActivity {
     ImageView ivMenuUser;//菜单栏用户头像
     @BindView(R.id.cvMenuUser)
     CardView cvMenuUser;//菜单栏用户头像父元素
+    @BindView(R.id.tvHomeRolename)
+    TextView tvHomeRolename;
     List<FileDetail> files;
     FileAdapter fileAdapter;
     Ls ls;//获取文件列表
@@ -81,6 +84,7 @@ public class HomeActivity extends AppCompatActivity {
     }
     private void init(){
         ButterKnife.bind(this);
+        tvHomeRolename.setText(UserMsg.getInstance().getUserInfo().getRolename());
         files = new ArrayList<>();
         ls = new Ls();
         fileAdapter = new FileAdapter(this,R.layout.home_recycleview_item,files);

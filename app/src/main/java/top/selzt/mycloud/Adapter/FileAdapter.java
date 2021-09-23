@@ -59,8 +59,10 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder> im
                         switch (item.getItemId()){
                             case R.id.download:
                                 //下载
-                                if(file.getFileType().equals("1"))
+                                if(file.getFileType().equals("1")){
+                                    Alert.getInstance().SimpleMessage(mContext,"暂不支持文件夹下载");
                                     return true;
+                                }
                                 String filename = file.getFileName();
                                 new DownloadThread(filename).start();
                                 return true;
