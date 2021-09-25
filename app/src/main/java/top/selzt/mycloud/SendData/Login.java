@@ -18,6 +18,7 @@ import okhttp3.Callback;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import top.selzt.mycloud.MainActivity;
+import top.selzt.mycloud.Util.Alert;
 import top.selzt.mycloud.Util.Constance;
 import top.selzt.mycloud.Util.SendRequest;
 import top.selzt.mycloud.Util.UserMsg;
@@ -61,10 +62,10 @@ public class Login {
                             mainActivity.finish();
                         }
                         else if (code.equals("20001")){
-                            Toast.makeText(mainActivity,"密码错误",Toast.LENGTH_SHORT).show();
+                            Alert.getInstance().SimpleMessage(mainActivity,"密码错误");
                         }
                         else if (code.equals("20002")){
-                            Toast.makeText(mainActivity,"帐号不存在",Toast.LENGTH_SHORT).show();
+                            Alert.getInstance().SimpleMessage(mainActivity,"帐号不存在");
                         }
                         else {
 

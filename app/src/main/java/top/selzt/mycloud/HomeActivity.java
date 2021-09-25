@@ -122,8 +122,12 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
-                            //超时设置为200ms
-                            Thread.sleep(200);
+                            //超时设置为2000ms
+                            int count = 0;
+                            while(!UserMsg.getInstance().isSuccess()&&count<20){
+                                count++;
+                                Thread.sleep(100);
+                            }
                             if(UserMsg.getInstance().isSuccess())
                                 refreshLayout.finishRefresh(true);
                             else
@@ -184,6 +188,10 @@ public class HomeActivity extends AppCompatActivity {
         userMsg.setNowPath(path);
         files.clear();
         ls.go(HomeActivity.this,files,fileAdapter);
+    }
+    @OnClick(R.id.rlHomeLeftUser)
+    public void onLeftUserClickListener(){
+        ARouter.getInstance().build(Constance.ROUTE_USER_INFO_URL).navigation();
     }
     //获取权限
     private void getOrder(){

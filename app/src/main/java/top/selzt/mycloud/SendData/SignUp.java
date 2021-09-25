@@ -45,7 +45,6 @@ public class SignUp {
                 switch (code){
                     case 20000:
                         Alert.getInstance().SimpleMessage(mContext,"注册成功");
-
                         break;
                     case 20001:
                         Alert.getInstance().SimpleMessage(mContext,"用户名为空");

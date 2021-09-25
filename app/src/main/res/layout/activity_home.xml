@@ -69,37 +69,41 @@
         android:layout_gravity="start"
         android:background="@color/white"
         >
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvUserimg"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_margin="10dp"
-            app:cardCornerRadius="60dp">
-            <ImageView
-                android:id="@+id/ivUserimg"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_launcher_background"
-                />
-        </androidx.cardview.widget.CardView>
-        <TextView
-            android:id="@+id/tvHomeRolename"
+        <RelativeLayout
+            android:id="@+id/rlHomeLeftUser"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="用户名"
-            android:textColor="@color/black"
-            android:layout_marginTop="25dp"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@id/cvUserimg"
-            />
-
+            android:layout_height="wrap_content">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvUserimg"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="60dp">
+                <ImageView
+                    android:id="@+id/ivUserimg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_launcher_background"
+                    />
+            </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/tvHomeRolename"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="用户名"
+                android:textColor="@color/black"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/cvUserimg"
+                />
+        </RelativeLayout>
         <RelativeLayout
             android:layout_marginTop="40dp"
             android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/cvUserimg">
+            android:layout_below="@id/rlHomeLeftUser">
             <RelativeLayout
                 android:id="@+id/rtFavorite"
                 android:layout_width="wrap_content"

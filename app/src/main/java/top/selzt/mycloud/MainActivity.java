@@ -21,6 +21,7 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import top.selzt.mycloud.SendData.Login;
 import top.selzt.mycloud.Util.Constance;
+import top.selzt.mycloud.Util.UserMsg;
 import top.selzt.mycloud.pojo.User;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,7 +46,12 @@ public class MainActivity extends AppCompatActivity {
     Boolean canClickTwo = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        if(!isTaskRoot()|| UserMsg.getInstance().getToken()!=null){
+            ARouter.getInstance().build(Constance.ROUTE_HOMEACTIVITY_URL).navigation();
+            finish();
+        }
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
         init();

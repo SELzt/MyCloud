@@ -56,29 +56,30 @@ public class Ls {
             if(response.isSuccessful()){
                 //成功，处理数据
                 String body = response.body().string();
-                homeActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Gson gson = new Gson();
-                        Type jsonType = new TypeToken<FileVo>(){}.getType();
-                        //接收数据
-                        FileVo fileVo = gson.fromJson(body,jsonType);
-                        int code = fileVo.getCode();
-                        if(code == Constance.GET_LIST_SUCCESS){
-                            UserMsg userMsg = UserMsg.getInstance();
-                            userMsg.setToken(fileVo.getToken());
-                            userMsg.setSuccess(true);
-                            List<FileDetail> list = fileVo.getFilesList();
-                            for(FileDetail f :list){
-                                fileList.add(f);
-                            }
+                Gson gson = new Gson();
+                Type jsonType = new TypeToken<FileVo>(){}.getType();
+                //接收数据
+                FileVo fileVo = gson.fromJson(body,jsonType);
+                int code = fileVo.getCode();
+                if(code == Constance.GET_LIST_SUCCESS){
+                    UserMsg userMsg = UserMsg.getInstance();
+                    userMsg.setToken(fileVo.getToken());
+                    userMsg.setSuccess(true);
+                    List<FileDetail> list = fileVo.getFilesList();
+                    for(FileDetail f :list){
+                        fileList.add(f);
+                    }
+                    homeActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
                             fileAdapter.notifyDataSetChanged();
                         }
-                        else {
-                            //请求失败
-                        }
-                    }
-                });
+                    });
+                }
+                else {
+                    //请求失败
+                }
+
             }
 
         }

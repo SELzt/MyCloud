@@ -19,6 +19,7 @@ import okhttp3.Callback;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import top.selzt.mycloud.ReceiveData.FileVo;
+import top.selzt.mycloud.Util.Alert;
 import top.selzt.mycloud.Util.Constance;
 import top.selzt.mycloud.Util.SendRequest;
 import top.selzt.mycloud.Util.UserMsg;
@@ -50,19 +51,19 @@ public class Rename {
                 Looper.prepare();
                 switch(fileVo.getCode()){
                     case Constance.RENAME_SUCCESS:
-                        Toast.makeText(mContext,"重命名成功",Toast.LENGTH_SHORT).show();
+                        Alert.getInstance().SimpleMessage(mContext,"重命名成功");
                         break;
                     case Constance.RENAME_FAIL_EXISTS:
-                        Toast.makeText(mContext,"文件名已存在",Toast.LENGTH_SHORT).show();
+                        Alert.getInstance().SimpleMessage(mContext,"文件名已存在");
                         break;
                     case Constance.RENAME_FAIL_NOT_EXISTS:
-                        Toast.makeText(mContext,"文件不存在",Toast.LENGTH_SHORT).show();
+                        Alert.getInstance().SimpleMessage(mContext,"文件不存在");
                         break;
                     case Constance.RENAME_FAIL:
-                        Toast.makeText(mContext,"重命名失败",Toast.LENGTH_SHORT).show();
+                        Alert.getInstance().SimpleMessage(mContext,"重命名失败");
                         break;
                     default:
-                        Toast.makeText(mContext,"重命名失败",Toast.LENGTH_SHORT).show();
+                        Alert.getInstance().SimpleMessage(mContext,"重命名失败");
                         break;
                 }
                 Looper.loop();
