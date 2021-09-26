@@ -57,7 +57,7 @@
             />
         <TextView
             android:id="@+id/infoRolename"
-            android:layout_width="100dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="rolename"
             android:singleLine="true"
@@ -117,7 +117,7 @@
             />
         <TextView
             android:id="@+id/infoMail"
-            android:layout_width="100dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="mail"
             android:singleLine="true"

@@ -15,14 +15,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyCloud">
-        <activity android:name=".UserInfoActivity"></activity>
+
+        <activity android:name=".UserInfoActivity" />
         <activity android:name=".TransmissionActivity" />
         <activity
             android:name=".SignUpActivity"
             android:launchMode="singleTask" />
         <activity
             android:name=".HomeActivity"
-            android:launchMode="singleTask"></activity>
+            android:launchMode="singleTask" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask">

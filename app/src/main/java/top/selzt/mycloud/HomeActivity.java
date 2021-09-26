@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -75,6 +77,7 @@ public class HomeActivity extends AppCompatActivity {
     List<FileDetail> files;
     FileAdapter fileAdapter;
     Ls ls;//获取文件列表
+    UpdateUserInfoReceiver infoReceiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,6 +143,11 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
         getOrder();
+        //注册用户信息更新广播
+        infoReceiver = new UpdateUserInfoReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Constance.RECEIVER_UPDATE_USERINFO);
+        registerReceiver(infoReceiver,intentFilter);
     }
 
     @OnClick({R.id.ivPopMenu})
@@ -229,6 +237,14 @@ public class HomeActivity extends AppCompatActivity {
 
         }
     }
+    //用户信息更新广播
+    public class UpdateUserInfoReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            tvHomeRolename.setText(UserMsg.getInstance().getUserInfo().getRolename());
+        }
+    }
+
     //获取文件真实路径
     @Override
     protected void onActivityResult(int requestCode, int resultCode,Intent data) {
@@ -389,4 +405,9 @@ public class HomeActivity extends AppCompatActivity {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
 
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(infoReceiver);
+        super.onDestroy();
+    }
 }

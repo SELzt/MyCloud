@@ -21,12 +21,11 @@ public class Alert {
             alert = new Alert();
         return alert;
     }
-    public void needInputMsg(Context context, String title, DialogInterface.OnClickListener event){
-        final EditText input = new EditText(context);
-        input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(18)});
+    public void needInputMsg(Context context, String title,EditText editText, DialogInterface.OnClickListener event){
+
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title);
-        builder.setView(input);
+        builder.setView(editText);
         builder.setNegativeButton("取消",null);
         builder.setPositiveButton("确定",event);
         builder.create().show();
