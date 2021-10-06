@@ -64,6 +64,7 @@
     </RelativeLayout>
     <!-- android:layout_gravity="start"-->
     <RelativeLayout
+        android:id="@+id/rlHomeLeftPanel"
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"

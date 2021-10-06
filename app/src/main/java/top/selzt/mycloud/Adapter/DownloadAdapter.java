@@ -14,13 +14,13 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 import top.selzt.mycloud.R;
+import top.selzt.mycloud.TransmissionActivity;
 import top.selzt.mycloud.TransmissionThread.DownloadThread;
 
 public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHolder> {
     private Context mContext;
     private int resourceId;
     private List<DownloadThread> mList;
-    private RecyclerView recyclerView;
     DecimalFormat df;
     public DownloadAdapter(Context context,int resourceId,List<DownloadThread> list){
         mContext = context;
@@ -38,7 +38,6 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         DownloadThread thread = mList.get(position);
-
         holder.tvFilename.setText(thread.getFilename());
         holder.tvUploadTotal.setText((long)thread.getDownloadSize()+"/"+(long)thread.getFileSize());
         holder.tvPercent.setText(df.format(thread.getDownloadSize()/thread.getFileSize()*100)+"%");
@@ -50,17 +49,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
     public int getItemCount() {
         return mList.size();
     }
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-        this.recyclerView = recyclerView;
-    }
 
-    @Override
-    public void onDetachedFromRecyclerView( RecyclerView recyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView);
-        this.recyclerView = null;
-    }
     class ViewHolder extends RecyclerView.ViewHolder{
         ProgressBar progressBar;//进度条
         TextView tvFilename;//文件名

@@ -90,12 +90,17 @@ public class DownloadThread extends Thread{
             if(response.isSuccessful()){
                 byte[] buffer = new byte[1024];
                 InputStream input = response.body().byteStream();
-                File f = new File(Constance.LOCAL_PATH_BASE + "/" + filename);
+                String base = Constance.LOCAL_PATH_BASE+"/"+UserMsg.getInstance().getUserInfo().getUsername() + "/";
+                File bs = new File(base);
+                if(!bs.exists()){
+                    bs.mkdirs();
+                }
+                File f = new File( base+ filename);
                 String prefix = filename.substring(0,filename.lastIndexOf("."));
                 String suffix = filename.substring(filename.lastIndexOf("."));
                 int i = 1;
                 while(f.exists()){
-                    f = new File(Constance.LOCAL_PATH_BASE + "/" + prefix + "(" + i + ")" + suffix);
+                    f = new File(base+ prefix + "(" + i + ")" + suffix);
                     i++;
                 }
                 FileOutputStream output = new FileOutputStream(f);
@@ -105,7 +110,7 @@ public class DownloadThread extends Thread{
                     downloadSize+=len; //更新下载进度
                     Log.i("download",downloadSize + "/" + fileSize);
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

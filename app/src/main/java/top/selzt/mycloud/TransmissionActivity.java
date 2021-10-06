@@ -50,11 +50,8 @@ public class TransmissionActivity extends AppCompatActivity {
         setContentView(R.layout.transmission_panel);
         ButterKnife.bind(this);
         uploadThreadList = new ArrayList<>();
-        for (Map.Entry<String, UploadThread> entry : ThreadMap.uploadThreadMap.entrySet()) {
-            uploadThreadList.add(entry.getValue());
-        }
+        initUploadThreadList();
         uploadAdapter = new UploadAdapter(TransmissionActivity.this, R.layout.transmission_item, uploadThreadList);
-
         LinearLayoutManager llm = new LinearLayoutManager(this);//线性布局
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(uploadAdapter);
@@ -81,10 +78,7 @@ public class TransmissionActivity extends AppCompatActivity {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                uploadThreadList.clear();
-                                for (Map.Entry<String, UploadThread> entry : ThreadMap.uploadThreadMap.entrySet()) {
-                                    uploadThreadList.add(entry.getValue());
-                                }
+                                initUploadThreadList();
                                 recyclerView.setAdapter(uploadAdapter);
                                 notifyUploadThread = new UploadThreadNotify();
                                 notifyUploadThread.start();
@@ -104,10 +98,7 @@ public class TransmissionActivity extends AppCompatActivity {
                             downloadThreadList = new ArrayList<>();
                             downloadAdapter = new DownloadAdapter(TransmissionActivity.this,R.layout.transmission_item,downloadThreadList);
                         }
-                        downloadThreadList.clear();
-                        for (Map.Entry<String,DownloadThread> entry : ThreadMap.downloadThreadMap.entrySet()){
-                            downloadThreadList.add(entry.getValue());
-                        }
+                        initDownloadThreadList();
                         recyclerView.setAdapter(downloadAdapter);
                         notifyDownloadThread = new DownloadThreadNotify();
                         notifyDownloadThread.start();
@@ -131,6 +122,8 @@ public class TransmissionActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        uploadThreadList.clear();
+                        initUploadThreadList();
                         uploadAdapter.notifyDataSetChanged();
                     }
                 });
@@ -151,6 +144,8 @@ public class TransmissionActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        downloadThreadList.clear();
+                        initDownloadThreadList();
                         downloadAdapter.notifyDataSetChanged();
                     }
                 });
@@ -165,5 +160,25 @@ public class TransmissionActivity extends AppCompatActivity {
     @OnClick(R.id.transmissionBackBtn)
     public void backBtnClickListener(){
         TransmissionActivity.this.finish();
+    }
+    private void initUploadThreadList(){
+        for (Map.Entry<String, UploadThread> entry : ThreadMap.uploadThreadMap.entrySet()) {
+            UploadThread uploadThread = entry.getValue();
+            if(uploadThread.getUploadSize() == uploadThread.getFileSize()){
+                ThreadMap.downloadThreadMap.remove(entry.getKey());
+                continue;
+            }
+            uploadThreadList.add(uploadThread);
+        }
+    }
+    private void initDownloadThreadList(){
+        for (Map.Entry<String,DownloadThread> entry : ThreadMap.downloadThreadMap.entrySet()){
+            DownloadThread downloadThread = entry.getValue();
+            if(downloadThread.getDownloadSize() == downloadThread.getFileSize()){
+                ThreadMap.downloadThreadMap.remove(entry.getKey());
+                continue;
+            }
+            downloadThreadList.add(downloadThread);
+        }
     }
 }

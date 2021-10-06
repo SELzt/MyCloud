@@ -13,6 +13,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 import top.selzt.mycloud.R;
+import top.selzt.mycloud.TransmissionActivity;
 import top.selzt.mycloud.TransmissionThread.UploadThread;
 import top.selzt.mycloud.Util.ThreadMap;
 
@@ -27,6 +28,7 @@ public class UploadAdapter extends RecyclerView.Adapter<UploadAdapter.ViewHolder
         this.resourceId = resourceId;
         mList = list;
         df = new DecimalFormat("0.00");
+        recyclerView = ((TransmissionActivity)context).findViewById(R.id.transmissionRecycle);
     }
 
     @Override
@@ -53,18 +55,6 @@ public class UploadAdapter extends RecyclerView.Adapter<UploadAdapter.ViewHolder
     @Override
     public int getItemCount() {
         return mList.size();
-    }
-
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-        this.recyclerView = recyclerView;
-    }
-
-    @Override
-    public void onDetachedFromRecyclerView( RecyclerView recyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView);
-        this.recyclerView = null;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{

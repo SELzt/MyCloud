@@ -201,6 +201,10 @@ public class HomeActivity extends AppCompatActivity {
     public void onLeftUserClickListener(){
         ARouter.getInstance().build(Constance.ROUTE_USER_INFO_URL).navigation();
     }
+    @OnClick(R.id.rlHomeLeftPanel)
+    public void onLeftPanelClickListener(){
+
+    }
     //获取权限
     private void getOrder(){
                 boolean firstLaunch = false;
