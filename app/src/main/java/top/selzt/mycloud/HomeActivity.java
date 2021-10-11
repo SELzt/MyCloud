@@ -248,7 +248,11 @@ public class HomeActivity extends AppCompatActivity {
             tvHomeRolename.setText(UserMsg.getInstance().getUserInfo().getRolename());
         }
     }
-
+    //退出登陆
+    @OnClick(R.id.tv_home_exit)
+    public void ExitListener(){
+        System.exit(0);
+    }
     //获取文件真实路径
     @Override
     protected void onActivityResult(int requestCode, int resultCode,Intent data) {

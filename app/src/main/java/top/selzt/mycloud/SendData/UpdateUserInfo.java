@@ -45,7 +45,7 @@ public class UpdateUserInfo {
                 if(userVo.getCode().equals(Constance.SUCCESS)){
                     UserMsg userMsg = UserMsg.getInstance();
                     userMsg.setToken(userVo.getToken());
-                    userMsg.setUserInfo(userVo.getUserInfo());
+                    //userMsg.setUserInfo(userVo.getUserInfo());
                     new GetUserInfo().go(mContext);
                     Log.e("GetUserInfo","更新用户信息成功");
                 }
